@@ -1,0 +1,16 @@
+---
+- hosts: development
+  remote_user: my_remote_user
+  become: yes
+  become_method: sudo
+  vars:
+    temp_folder: /tmp
+  tasks:
+    #Install prerequisites
+    - include: tasks/prerequisites.yml
+
+    #Install MongoDB
+    - include: tasks/mongodb.yml
+
+    #Install Node.js
+    - include: tasks/nodejs.yml

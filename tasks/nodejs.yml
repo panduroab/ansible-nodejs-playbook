@@ -1,0 +1,28 @@
+- name: Node.js | Get script
+  get_url: 
+    url: "http://deb.nodesource.com/setup_6.x"
+    dest: "{{temp_folder}}/nodejs.sh"
+
+- name: Node.js | Set execution permission to script
+  file:
+    path: "{{temp_folder}}/nodejs.sh"
+    mode: "u+x"
+
+- name: Node.js | Execute installation script
+  shell: "{{temp_folder}}/nodejs.sh"
+
+- name: Node.js | Remove installation script
+  file:
+    path: "{{temp_folder}}/nodejs.sh"
+    state: absent
+
+- name: Node.js | Install Node.js
+  apt: name={{item}} state=present update_cache=yes #Looping install using item and with_items
+  with_items:
+    - build-essential
+    - nodejs
+
+- name: Node.js | Install PM2 globally
+  npm: name={{item}} state=present global=yes
+  with_items:
+    - pm2

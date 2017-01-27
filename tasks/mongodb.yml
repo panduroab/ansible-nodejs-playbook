@@ -1,0 +1,25 @@
+- name: MongoDB | Import public key
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: EA312927
+
+- name: MongoDB | Add repository
+  apt_repository:
+    filename: '/etc/apt/sources.list.d/mongodb-org-3.2.list'
+    repo: 'deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse'
+    state: present
+    update_cache: yes
+
+- name: MongoDB | Install MongoDB
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+    - mongodb-org
+    - mongodb-org-server
+    - mongodb-org-shell
+    - mongodb-org-mongos
+    - mongodb-org-tools
+
+- name: MongoDB | Ensure MongoDB is running
+  service:
+    name: mongod
+    state: started
