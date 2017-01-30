@@ -14,3 +14,6 @@
 
     #Install Node.js
     - include: tasks/nodejs.yml
+
+    #Install Nginx
+    - include: tasks/nginx.yml

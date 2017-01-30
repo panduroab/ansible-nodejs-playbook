@@ -11,13 +11,10 @@
     update_cache: yes
 
 - name: MongoDB | Install MongoDB
-  apt: name={{item}} state=present update_cache=yes
-  with_items:
-    - mongodb-org
-    - mongodb-org-server
-    - mongodb-org-shell
-    - mongodb-org-mongos
-    - mongodb-org-tools
+  apt: 
+    name: mongodb-org 
+    state: present
+    update_cache: yes
 
 - name: MongoDB | Ensure MongoDB is running
   service:
